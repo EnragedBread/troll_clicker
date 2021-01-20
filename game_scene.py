@@ -1,5 +1,4 @@
 import pygame
-from pygame.locals import MOUSEMOTION
 
 from troll import Troll
 
@@ -10,8 +9,7 @@ class GameScene():
         self.troll = Troll()
 
     def handle_event(self, event):
-        if event.type == MOUSEMOTION:
-            self.troll.handle_event(event)
+        self.troll.handle_event(event)
 
     def render(self, screen):
         screen.fill(self.background_color)
