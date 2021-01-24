@@ -23,10 +23,10 @@ class SceneManager():
                     self.quit()
                 self.scene.handle_event(event)
 
-                self.scene.update()
-                self.scene.render(self.screen)
+            self.scene.update()
+            self.scene.render(self.screen)
 
-                self.clock.tick(FPS)
+            self.clock.tick(FPS)
 
     def quit(self):
         self.running = False
