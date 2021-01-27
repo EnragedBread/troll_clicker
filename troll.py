@@ -1,15 +1,22 @@
+import os
 import random
 import time
 
 import pygame
-from pygame.locals import MOUSEMOTION, KEYDOWN, K_RCTRL, MOUSEBUTTONDOWN
+from pygame.locals import MOUSEMOTION, KEYDOWN, K_RCTRL, MOUSEBUTTONDOWN, RLEACCEL
 
 from config import window_size
 
 class Troll(pygame.sprite.Sprite):
     def __init__(self, scene):
         super().__init__()
-        self.surf = pygame.Surface((50,50))
+        here = os.path.dirname(os.path.abspath(__file__))
+        sound = os.path.join(here, 'troll_movement.wav')
+        self.move_sound = pygame.mixer.Sound(sound)
+        image = os.path.join(here, 'troll.png')
+
+        self.surf = pygame.image.load(image).convert()
+        self.surf.set_colorkey(pygame.Color('white'), RLEACCEL)
         self.rect = self.surf.get_rect(
             topleft = (
                 (window_size.width - self.surf.get_width()) // 2,
@@ -73,3 +80,5 @@ class Troll(pygame.sprite.Sprite):
             self.delta_y = max(new_y - self.rect.y, self.rect.height)
         else:
             self.delta_y = min(new_y - self.rect.y, -self.rect.height)
+
+        self.move_sound.play()
